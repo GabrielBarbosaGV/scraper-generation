@@ -26,7 +26,7 @@ describe('documentFromTest', () => {
                     }
                 }));
 
-                return documentFromText(input) as any === document;
+                expect(documentFromText(input)).toBe(document)
             })
         );
     });
