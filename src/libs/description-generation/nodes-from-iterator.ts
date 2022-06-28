@@ -12,4 +12,4 @@ export function* nodesFromIterator({ nextNode }: MinimalNodeIterator) {
     }
 }
 
-export const nodeArrayFromIterator = (iterator: Iterable<Node>) => Array.from(iterator);
+export const nodeArrayFromIterable = (iterable: Iterable<Node>) => Array.from(iterable);

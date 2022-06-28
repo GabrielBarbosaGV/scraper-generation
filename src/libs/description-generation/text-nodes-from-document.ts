@@ -1,4 +1,4 @@
-import { MinimalNodeIterator, nodeArrayFromIterator } from "./nodes-from-iterator";
+import { MinimalNodeIterator, nodeArrayFromIterable } from "./nodes-from-iterator";
 import { obtainAllTextNodes } from "./text-node-acquisition";
 
 export interface MinimalDocument {
@@ -15,6 +15,6 @@ export const textNodesFromDocument = (
     getRootNode(),
     {
         nodeIteratorFromRootNode: createNodeIterator,
-        nodeArrayFromIterator
+        nodeArrayFromIterator: nodeArrayFromIterable
     }
 );
