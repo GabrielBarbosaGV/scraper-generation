@@ -13,13 +13,15 @@ describe('obtainAllTextNodes', () => {
                 fc.func(fc.array(fc.constant(jest.fn()() as Node))),
 
                 (nodeIteratorFromRootNode, nodeArrayFromIterator) => {
+                    const rootNode: Node = jest.fn()();
+
                     expect(obtainAllTextNodes(
-                        jest.fn()(),
+                        rootNode,
                         {
                             nodeIteratorFromRootNode,
                             nodeArrayFromIterator
                         }
-                    ))
+                    )).toBe(nodeArrayFromIterator(nodeIteratorFromRootNode(rootNode)))
                 }
             )
         );
