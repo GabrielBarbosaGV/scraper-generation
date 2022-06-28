@@ -19,7 +19,7 @@ describe('obtainAllTextNodes', () => {
                         rootNode,
                         {
                             nodeIteratorFromRootNode,
-                            nodeArrayFromIterator
+                            nodeArrayFromIterator: nodeArrayFromIterator
                         }
                     )).toBe(nodeArrayFromIterator(nodeIteratorFromRootNode(rootNode)))
                 }
