@@ -2,17 +2,17 @@ import { MinimalNodeIterator } from "./nodes-from-iterator";
 
 export interface TextNodeAcquisitionArgs {
     nodeIteratorFromRootNode: (Node) => MinimalNodeIterator,
-    nodeArrayFromIterator: (MinimalNodeIterator) => Node[]
+    nodeArrayFromNodeIterator: (MinimalNodeIterator) => Node[]
 }
 
 export const obtainAllTextNodes = (
     rootNode: Node,
     {
         nodeIteratorFromRootNode,
-        nodeArrayFromIterator
+        nodeArrayFromNodeIterator
     }: TextNodeAcquisitionArgs
 ) => {
     const iterator = nodeIteratorFromRootNode(rootNode);
     
-    return nodeArrayFromIterator(iterator);
+    return nodeArrayFromNodeIterator(iterator);
 };

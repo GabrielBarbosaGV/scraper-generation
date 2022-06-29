@@ -1,7 +1,5 @@
 import fc from "fast-check";
-import { MinimalNodeIterator, nodeArrayFromIterable, nodesFromIterator } from "./nodes-from-iterator";
-
-(global as any).Node = {};
+import { MinimalNodeIterator, nodeArrayFromIterable, iterableFromNodeIterator } from "./nodes-from-iterator";
 
 describe('nodesFromIterator', () => {
     test('finishes after as many iterations as supplied by "nextNode"', () => {
@@ -13,13 +11,13 @@ describe('nodesFromIterator', () => {
 
                 nodes.forEach((myIterator.nextNode as jest.Mock).mockReturnValueOnce);
 
-                expect(Array.from(nodesFromIterator(myIterator))).toHaveLength(nodes.length);
+                expect(Array.from(iterableFromNodeIterator(myIterator))).toHaveLength(nodes.length);
             })
         );
     });
 });
 
-describe('nodeArrayFromIterator', () => {
+describe('nodeArrayFromIterable', () => {
     test('uses Array.from', () => {
         const mockArrayFrom = jest.fn();
 
@@ -35,12 +33,31 @@ describe('nodeArrayFromIterator', () => {
 
                 nodes.forEach((myIterator.nextNode as jest.Mock).mockReturnValueOnce);
 
-                const iterable = nodesFromIterator(myIterator);
+                const iterable = iterableFromNodeIterator(myIterator);
 
                 nodeArrayFromIterable(iterable);
 
                 expect(mockArrayFrom).toHaveBeenCalled();
             })
         )
+    });
+});
+
+describe('nodeArrayFromNodeIterator', () => {
+    test('composes nodeArrayFromIterable . iterableFromNodeIterator', () => {
+        fc.assert(
+            fc.property(
+                fc.array(fc.constant((jest.fn()() as Node)), { maxLength: 50 }), (nodes) => {
+                    const entries = nodes.entries();
+
+                    const nodeIterator: MinimalNodeIterator = {
+                        nextNode: () => entries.next().value
+                    };
+
+                    expect(nodeArrayFromIterable(iterableFromNodeIterator(nodeIterator)))
+                        .toEqual(nodes);
+                }
+            )
+        );
     });
 });

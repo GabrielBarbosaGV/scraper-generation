@@ -2,7 +2,7 @@ export interface MinimalNodeIterator {
     nextNode: () => Node
 }
 
-export function* nodesFromIterator({ nextNode }: MinimalNodeIterator) {
+export function* iterableFromNodeIterator({ nextNode }: MinimalNodeIterator) {
     while (true) {
         const node = nextNode();
 
@@ -13,3 +13,6 @@ export function* nodesFromIterator({ nextNode }: MinimalNodeIterator) {
 }
 
 export const nodeArrayFromIterable = (iterable: Iterable<Node>) => Array.from(iterable);
+
+export const nodeArrayFromNodeIterator = (iterator: MinimalNodeIterator) =>
+    nodeArrayFromIterable(iterableFromNodeIterator(iterator));

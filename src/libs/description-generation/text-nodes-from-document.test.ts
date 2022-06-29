@@ -1,4 +1,4 @@
-import { MinimalNodeIterator, nodeArrayFromIterable } from "./nodes-from-iterator";
+import { MinimalNodeIterator, nodeArrayFromNodeIterator } from "./nodes-from-iterator";
 import { obtainAllTextNodes } from "./text-node-acquisition";
 import { textNodesFromDocument } from "./text-nodes-from-document";
 
@@ -18,7 +18,7 @@ describe('textNodesFromDocument', () => {
                 rootNodeMock,
                 {
                     nodeIteratorFromRootNode: createNodeIterator,
-                    nodeArrayFromIterator: nodeArrayFromIterable
+                    nodeArrayFromNodeIterator
                 }
             );
     });
