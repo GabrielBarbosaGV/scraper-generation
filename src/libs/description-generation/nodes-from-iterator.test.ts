@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import { MinimalNodeIterator, nodeArrayFromIterable, iterableFromNodeIterator } from "./nodes-from-iterator";
+import { MinimalNodeIterator, nodeArrayFromIterable, iterableFromNodeIterator, nodeArrayFromNodeIterator } from "./nodes-from-iterator";
 
 describe('nodesFromIterator', () => {
     test('finishes after as many iterations as supplied by "nextNode"', () => {
@@ -47,15 +47,23 @@ describe('nodeArrayFromNodeIterator', () => {
     test('composes nodeArrayFromIterable . iterableFromNodeIterator', () => {
         fc.assert(
             fc.property(
-                fc.array(fc.constant((jest.fn()() as Node)), { maxLength: 50 }), (nodes) => {
+                fc.array(fc.constant((jest.fn()() as Node)), { maxLength: 50 }), nodes => {
                     const entries = nodes.entries();
+
+                    const entriesCopy = [...nodes].entries();
 
                     const nodeIterator: MinimalNodeIterator = {
                         nextNode: () => entries.next().value
                     };
 
-                    expect(nodeArrayFromIterable(iterableFromNodeIterator(nodeIterator)))
-                        .toEqual(nodes);
+                    const nodeIteratorCopy: MinimalNodeIterator = {
+                        nextNode: () => entriesCopy.next().value
+                    }
+
+                    const returnedNodes = nodeArrayFromNodeIterator(nodeIterator);
+
+                    expect(returnedNodes)
+                        .toEqual(nodeArrayFromIterable(iterableFromNodeIterator(nodeIteratorCopy)));
                 }
             )
         );

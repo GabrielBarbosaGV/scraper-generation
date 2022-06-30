@@ -2,7 +2,7 @@ import { MinimalNodeIterator, nodeArrayFromNodeIterator } from "./nodes-from-ite
 import { obtainAllTextNodes } from "./text-node-acquisition";
 
 export interface MinimalDocument {
-    createNodeIterator: (Node) => MinimalNodeIterator,
+    createNodeIterator: (node: Node, nodeFilter: number) => MinimalNodeIterator,
     getRootNode: () => Node
 }
 
@@ -14,7 +14,7 @@ export const textNodesFromDocument = (
 ) => obtainAllTextNodes(
     getRootNode(),
     {
-        nodeIteratorFromRootNode: createNodeIterator,
+        createNodeIterator: createNodeIterator,
         nodeArrayFromNodeIterator: nodeArrayFromNodeIterator
     }
 );

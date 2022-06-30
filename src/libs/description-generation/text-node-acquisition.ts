@@ -1,18 +1,23 @@
 import { MinimalNodeIterator } from "./nodes-from-iterator";
-
 export interface TextNodeAcquisitionArgs {
-    nodeIteratorFromRootNode: (Node) => MinimalNodeIterator,
-    nodeArrayFromNodeIterator: (MinimalNodeIterator) => Node[]
+    createNodeIterator: (node: Node, nodeType: number) => MinimalNodeIterator,
+    nodeArrayFromNodeIterator: (minimalNodeIterator: MinimalNodeIterator) => Node[]
 }
+
+const SHOW_TEXT = 4; // Unable to find NodeFilter in JSDOM, thus using fixed value.
+                     // This ensures only text nodes are selected, when used below.
 
 export const obtainAllTextNodes = (
     rootNode: Node,
     {
-        nodeIteratorFromRootNode,
+        createNodeIterator,
         nodeArrayFromNodeIterator
     }: TextNodeAcquisitionArgs
 ) => {
-    const iterator = nodeIteratorFromRootNode(rootNode);
+    const iterator = createNodeIterator(
+        rootNode,
+        SHOW_TEXT
+    );
     
     return nodeArrayFromNodeIterator(iterator);
 };

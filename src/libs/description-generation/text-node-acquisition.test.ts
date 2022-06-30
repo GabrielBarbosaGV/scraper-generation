@@ -18,7 +18,7 @@ describe('obtainAllTextNodes', () => {
                     expect(obtainAllTextNodes(
                         rootNode,
                         {
-                            nodeIteratorFromRootNode,
+                            createNodeIterator: nodeIteratorFromRootNode,
                             nodeArrayFromNodeIterator: nodeArrayFromIterator
                         }
                     )).toBe(nodeArrayFromIterator(nodeIteratorFromRootNode(rootNode)))
