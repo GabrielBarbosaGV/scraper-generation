@@ -3,7 +3,8 @@ import { obtainAllTextNodes } from "./text-node-acquisition";
 
 export interface MinimalDocument {
     createNodeIterator: (node: Node, nodeFilter: number) => MinimalNodeIterator,
-    getRootNode: () => Node
+    getRootNode: () => Node,
+    querySelector: (selector: string) => Node
 }
 
 export const textNodesFromDocument = (
@@ -12,8 +13,8 @@ export const textNodesFromDocument = (
         getRootNode
     }: MinimalDocument
 ) => obtainAllTextNodes(
-    getRootNode(),
     {
+        rootNode: getRootNode(),
         createNodeIterator: createNodeIterator,
         nodeArrayFromNodeIterator: nodeArrayFromNodeIterator
     }

@@ -1,5 +1,6 @@
 import { MinimalNodeIterator } from "./nodes-from-iterator";
 export interface TextNodeAcquisitionArgs {
+    rootNode: Node,
     createNodeIterator: (node: Node, nodeType: number) => MinimalNodeIterator,
     nodeArrayFromNodeIterator: (minimalNodeIterator: MinimalNodeIterator) => Node[]
 }
@@ -8,8 +9,8 @@ const SHOW_TEXT = 4; // Unable to find NodeFilter in JSDOM, thus using fixed val
                      // This ensures only text nodes are selected, when used below.
 
 export const obtainAllTextNodes = (
-    rootNode: Node,
     {
+        rootNode,
         createNodeIterator,
         nodeArrayFromNodeIterator
     }: TextNodeAcquisitionArgs

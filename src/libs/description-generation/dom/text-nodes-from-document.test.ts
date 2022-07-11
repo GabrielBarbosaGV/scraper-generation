@@ -7,21 +7,23 @@ jest.mock('./text-node-acquisition');
 
 describe('textNodesFromDocument', () => {
     test('calls obtainAllTextNodes with expected arguments', () => {
-        const rootNodeMock: Node = jest.fn()();
+        const rootNode: Node = jest.fn()();
 
         const createNodeIterator: (node: Node, nodeType: number) => MinimalNodeIterator = jest.fn();
-        const getRootNode: () => Node = jest.fn().mockReturnValue(rootNodeMock);
+        const getRootNode: () => Node = jest.fn().mockReturnValue(rootNode);
 
-        textNodesFromDocument({ createNodeIterator, getRootNode });
+        textNodesFromDocument({
+            createNodeIterator,
+            getRootNode,
+            querySelector: jest.fn()
+        });
 
         expect(obtainAllTextNodes)
-            .toHaveBeenCalledWith(
-                rootNodeMock,
-                {
-                    createNodeIterator: createNodeIterator,
-                    nodeArrayFromNodeIterator
-                }
-            );
+            .toHaveBeenCalledWith({
+                rootNode,
+                createNodeIterator,
+                nodeArrayFromNodeIterator
+            });
     });
 
     test('returns nodeArrayFromNodeIterator . createNodeIterator composition over root node', () => {
@@ -33,7 +35,8 @@ describe('textNodesFromDocument', () => {
 
                     const returnedNodes = textNodesFromDocument({
                         createNodeIterator: jest.fn(),
-                        getRootNode: jest.fn()
+                        getRootNode: jest.fn(),
+                        querySelector: jest.fn()
                     });
 
                     expect(returnedNodes).toEqual(nodes);

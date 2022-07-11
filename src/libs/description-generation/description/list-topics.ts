@@ -1,0 +1,1 @@
+export const listTopics = (topics: string[]) => `${topics.map(topic => `- ${topic}`).join(';\n')}.`;

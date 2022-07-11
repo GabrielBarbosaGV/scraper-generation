@@ -1,16 +1,16 @@
 import fc from 'fast-check';
 import { JSDOM }from 'jsdom';
-import { documentFromText } from '.';
+import { documentFromText } from './document-acquisition';
 
 jest.mock('jsdom');
 
 describe('documentFromTest', () => {
     test('instantiates a JSDOM', () => {
-        (JSDOM as any).mockImplementation(() => ({
+        (JSDOM as any).mockReturnValue({
             window: {
                 document: 'any string'
             }
-        }));
+        });
         
         documentFromText('Any text');
 
@@ -20,11 +20,11 @@ describe('documentFromTest', () => {
     test('accesses window.document', () => {
         fc.assert(
             fc.property(fc.string(), fc.string(), (input, document) => {
-                (JSDOM as any).mockImplementation(() => ({
+                (JSDOM as any).mockReturnValue({
                     window: {
                         document
                     }
-                }));
+                });
 
                 expect(documentFromText(input)).toBe(document)
             })
