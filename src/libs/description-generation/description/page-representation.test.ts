@@ -6,9 +6,12 @@ describe('pageRepresentation', () => {
     test('generates a representation of given document', () => {
         fc.assert(
             fc.property(
-                fc.array(fc.tuple(fc.string(), fc.func(fc.string()).map(f => jest.fn().mockImplementation(f)))),
+                fc.array(fc.tuple(fc.string(), fc.string().map(jest.fn().mockReturnValue))),
                 selectorsWithExtractors => {
-                    const document: MinimalDocument = jest.fn()();
+                    const document: MinimalDocument = {
+                        ...(jest.fn()()),
+                        querySelector: jest.fn().mockReturnValue(jest.fn()())
+                    };
 
                     const representation = pageRepresentation({ document, selectorsWithExtractors });
 

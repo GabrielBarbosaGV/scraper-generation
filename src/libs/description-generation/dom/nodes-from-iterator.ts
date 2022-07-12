@@ -2,9 +2,9 @@ export interface MinimalNodeIterator {
     nextNode: () => Node
 }
 
-export function* iterableFromNodeIterator({ nextNode }: MinimalNodeIterator) {
+export function* iterableFromNodeIterator(nodeIterator: MinimalNodeIterator) {
     while (true) {
-        const node = nextNode();
+        const node = nodeIterator.nextNode();
 
         if (node != null)
             yield node;

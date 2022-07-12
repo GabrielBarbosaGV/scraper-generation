@@ -15,12 +15,17 @@ describe('descriptionCenter', () => {
         fc.assert(
             fc.property(
                 fc.array(fc.string(), { maxLength: 50 }),
-                fc.func(fc.string()),
-                (selectors, summarizer) => {
+                fc.string(),
+                (selectors, extractSummarizingReturnValue) => {
                     (getSelectors as jest.Mock).mockReturnValue(selectors);
-                    (extractSummarizing as jest.Mock).mockImplementation(summarizer);
+                    (extractSummarizing as jest.Mock).mockReturnValue(extractSummarizingReturnValue);
 
-                    const document: MinimalDocument = jest.fn()();
+                    let document: MinimalDocument = jest.fn()();
+
+                    document = {
+                        ...document,
+                        querySelector: jest.fn()
+                    };
 
                     expect(descriptionCenter(document)).toEqual(
                         pageRepresentation({

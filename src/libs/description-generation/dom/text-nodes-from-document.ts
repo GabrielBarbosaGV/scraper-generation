@@ -8,14 +8,18 @@ export interface MinimalDocument {
 }
 
 export const textNodesFromDocument = (
-    {
+    document: MinimalDocument
+) =>  {
+    const {
         createNodeIterator,
         getRootNode
-    }: MinimalDocument
-) => obtainAllTextNodes(
-    {
-        rootNode: getRootNode(),
-        createNodeIterator: createNodeIterator,
-        nodeArrayFromNodeIterator: nodeArrayFromNodeIterator
-    }
-);
+    } = document;
+
+    return obtainAllTextNodes(
+        {
+            rootNode: getRootNode.bind(document)(),
+            createNodeIterator: createNodeIterator.bind(document),
+            nodeArrayFromNodeIterator: nodeArrayFromNodeIterator
+        }
+    );
+}

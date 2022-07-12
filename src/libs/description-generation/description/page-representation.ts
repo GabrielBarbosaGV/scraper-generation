@@ -13,7 +13,7 @@ export interface ExtractorArgs {
 type SelectorWithExtractor = [string, (extractorArgs: ExtractorArgs) => string];
 
 const selectorRepresentation = ({ document, selectorWithExtractor: [selector, extractor] }: SelectorRepresentationArgs) =>
-    `${selector}: ${extractor({ selector, ...document })}`;
+    `${selector}: ${extractor({ selector, querySelector: document.querySelector.bind(document) })}`;
 
 const selectorRepresentationGetterFor =
     (document: MinimalDocument) => (selectorWithExtractor: SelectorWithExtractor) =>

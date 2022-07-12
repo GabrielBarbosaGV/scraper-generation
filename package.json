@@ -12,6 +12,7 @@
   "dependencies": {
     "@middy/core": "^2.5.3",
     "@middy/http-json-body-parser": "^2.5.3",
+    "child_process": "^1.0.2",
     "jsdom": "^20.0.0",
     "unique-selector": "^0.5.0"
   },
