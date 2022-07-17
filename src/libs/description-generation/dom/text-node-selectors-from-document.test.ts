@@ -2,6 +2,7 @@ import fc from "fast-check";
 import { selectorsFromDocument, uniqueTextNodeSelectorsFromDocument } from "./text-node-selectors-from-document";
 import unique from 'unique-selector';
 import { textNodesFromDocument } from './text-nodes-from-document';
+import { uniqueSelector } from "./unique";
 
 jest.mock('unique-selector');
 jest.mock('./text-nodes-from-document');
@@ -35,7 +36,7 @@ describe('uniqueTextNodeSelectorsFromDocument', () => {
                     expect(uniqueTextNodeSelectorsFromDocument(mockDocument))
                         .toEqual(selectorsFromDocument({
                             nodes: textNodesFromDocument(mockDocument),
-                            getSelector: unique
+                            getSelector: uniqueSelector
                         }));
                 }
             )

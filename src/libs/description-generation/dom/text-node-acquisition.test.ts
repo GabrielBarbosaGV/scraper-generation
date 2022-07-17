@@ -8,7 +8,13 @@ describe('obtainAllTextNodes', () => {
     test('returns the nodeArrayFromIterator . nodeIteratorFromRootNode composition', () => {
         fc.assert(
             fc.property(
-                fc.array(fc.string({ maxLength: 20 }).map(s => ({ ...(jest.fn()() as Node), textContent: s })), { maxLength: 10 }),
+                fc.array(
+                    fc.tuple(fc.string({ maxLength: 20 }), fc.string({ maxLength: 20 }))
+                        .map(([s1, s2]) => ({
+                            ...(jest.fn()() as Node),
+                            textContent: s1,
+                            parentElement: s2
+                        })), { maxLength: 10 }),
 
                 fc.constant((iterator: MinimalNodeIterator) => 
                     Array.from(function* () {
@@ -25,7 +31,7 @@ describe('obtainAllTextNodes', () => {
                 (nodes, nodeArrayFromNodeIterator, rootNodeTextContent) => {
                     const rootNode: Node = {
                         ...jest.fn()(),
-                        textContent: rootNodeTextContent
+                        textContent: rootNodeTextContent,
                     };
 
                     const createNodeIterator = jest.fn().mockImplementation(() => {
@@ -46,6 +52,7 @@ describe('obtainAllTextNodes', () => {
                         nodeArrayFromNodeIterator(
                             createNodeIterator(rootNode)
                         ).filter(node => !/^\s*$/.test(node.textContent))
+                            .map(node => node.parentElement)
                     );
                 }
             )

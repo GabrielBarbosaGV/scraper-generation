@@ -5,4 +5,6 @@ export const descriptionPrefix = (topics: string[]) => `
 
     ${listTopics(topics)}
 
+    Given the following web page description:
+
 `;

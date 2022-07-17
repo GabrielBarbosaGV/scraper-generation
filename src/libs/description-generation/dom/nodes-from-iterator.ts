@@ -6,8 +6,7 @@ export function* iterableFromNodeIterator(nodeIterator: MinimalNodeIterator) {
     while (true) {
         const node = nodeIterator.nextNode();
 
-        if (node != null)
-            yield node;
+        if (node) yield node;
         else return;
     }
 }

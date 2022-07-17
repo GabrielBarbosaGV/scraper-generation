@@ -1,12 +1,16 @@
 import { MinimalNodeIterator } from "./nodes-from-iterator";
 
+interface AcceptNode {
+    acceptNode: (node: Node) => number
+}
+
 export interface TextNodeAcquisitionArgs {
     rootNode: Node,
-    createNodeIterator: (node: Node, nodeType: number) => MinimalNodeIterator,
+    createNodeIterator: (node: Node, nodeType: number, acceptNode?: AcceptNode) => MinimalNodeIterator,
     nodeArrayFromNodeIterator: (minimalNodeIterator: MinimalNodeIterator) => Node[]
 }
 
-const SHOW_ELEMENT = 1;
+const SHOW_TEXT = 4;
 
 export const obtainAllTextNodes = (
     {
@@ -17,14 +21,18 @@ export const obtainAllTextNodes = (
 ) => {
     const iterator = createNodeIterator(
         rootNode,
-        SHOW_ELEMENT,
+        SHOW_TEXT,
     );
     
-    return nodeArrayFromNodeIterator(iterator).filter(nodeDoesNotHaveEmptyText);
+    return nodeArrayFromNodeIterator(iterator)
+        .filter(nodeDoesNotHaveEmptyText)
+        .map(parentOfTextElement);
 };
+
+const parentOfTextElement = (node: Node) => node.parentElement;
 
 const nodeDoesNotHaveEmptyText = (node: Node) => textIsNotEmpty(node.textContent);
 
 const textIsNotEmpty = s => !textIsEmpty(s);
 
-const textIsEmpty = s =>  /^\s*$/.test(s);
+const textIsEmpty = s => /^\s*$/.test(s);

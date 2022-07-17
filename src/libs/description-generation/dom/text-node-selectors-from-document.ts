@@ -1,5 +1,5 @@
 import { MinimalDocument, textNodesFromDocument } from "./text-nodes-from-document";
-import unique from 'unique-selector';
+import { uniqueSelector } from "./unique";
 
 interface TextNodeSelectorsFromDocumentArgs {
     nodes: Node[],
@@ -15,5 +15,5 @@ export const selectorsFromDocument = (
 
  export const uniqueTextNodeSelectorsFromDocument = (document: MinimalDocument) => selectorsFromDocument({
     nodes: textNodesFromDocument(document),
-    getSelector: unique
+    getSelector: uniqueSelector
  });

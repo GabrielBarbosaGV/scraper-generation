@@ -1,4 +1,7 @@
-export const summarizedText = (text: string) =>
-    text.length > 30
-    ? `"${text.substring(0, 25)}..." (${text.length} characters)`
-    : `"${text}"`;
+export const summarizedText = (text: string) => {
+    const trimmed = text.trim();
+
+    return trimmed.length > 30
+        ? `"${trimmed.substring(0, 25)}..." (${trimmed.length} characters)`
+        : `"${trimmed}"`;
+}

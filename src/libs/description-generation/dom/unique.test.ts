@@ -17,7 +17,7 @@ describe('uniqueSelector', () => {
                     expect(uniqueSelector(node)).toEqual(selector);
                     expect(unique).toHaveBeenCalledWith(
                         node,
-                        { selectorTypes: ['NthChild', 'ID', 'Class', 'Tag'] }
+                        { selectorTypes: ['ID', 'Class', 'Tag'] }
                     );
                 }
             )
