@@ -8,7 +8,7 @@ describe('listTopics', () => {
                 fc.array(fc.string({ maxLength: 50 })),
                 topics => {
                     expect(listTopics(topics)).toEqual(
-                        `${topics.map(topic => `- ${topic}`).join(';\n')}.`
+                        `${topics.map(topic => `- "${topic}"`).join(';\n')}.`
                     );
                 }
             )

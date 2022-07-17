@@ -1,10 +1,10 @@
 import { listTopics } from "./list-topics";
 
 export const descriptionPrefix = (topics: string[]) => `
-    A map of topics to CSS selectors, given the following topics:
+A JSON map of the following topic strings:
 
-    ${listTopics(topics)}
+${listTopics(topics)}
 
-    Given the following web page description:
+To the their corresponding CSS selectors, for the web page summarized below:
 
 `;
