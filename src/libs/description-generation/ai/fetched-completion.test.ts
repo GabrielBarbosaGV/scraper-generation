@@ -11,7 +11,15 @@ describe('completer', () => {
                 fc.string(),
                 fc.string(),
                 (completionArg, completionReturnValue) => {
-                    const createCompletion = jest.fn().mockReturnValue(completionReturnValue);
+                    const wrapperObject = {
+                        data: {
+                            choices: [
+                                { text: completionReturnValue }
+                            ]
+                        }
+                    };
+
+                    const createCompletion = jest.fn().mockReturnValue(wrapperObject);
 
                     (makeOpenAIApi as jest.Mock).mockReturnValue({
                         createCompletion
@@ -19,7 +27,7 @@ describe('completer', () => {
 
                     const completion = completer();
 
-                    expect(completion.for(completionArg)).toEqual(completionReturnValue);
+                    expect(completion.for(completionArg)).resolves.toEqual(completionReturnValue);
 
                     expect(createCompletion).toHaveBeenCalledWith({
                         model: "text-davinci-002",
