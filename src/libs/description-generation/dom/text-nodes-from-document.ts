@@ -19,7 +19,7 @@ export const textNodesFromDocument = (
         {
             rootNode: getRootNode.bind(document)(),
             createNodeIterator: createNodeIterator.bind(document),
-            nodeArrayFromNodeIterator: nodeArrayFromNodeIterator
+            nodeArrayFromNodeIterator
         }
     );
 }

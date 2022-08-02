@@ -5,6 +5,6 @@ A JSON map of the following topic strings:
 
 ${listTopics(topics)}
 
-To the their corresponding CSS selectors, for the web page summarized below:
+To their corresponding DOM elements, for the web page summarized below:
 
 `;

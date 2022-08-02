@@ -9,7 +9,8 @@ export const completer = () => {
             const completionObject = await openai.createCompletion({
                 model: "text-davinci-002",
                 prompt,
-                temperature: 0
+                temperature: 0,
+                max_tokens: 300
             });
 
             return extractedFrom(completionObject);
