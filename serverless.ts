@@ -1,6 +1,6 @@
 import type { AWS } from '@serverless/typescript';
 
-import hello from '@functions/hello';
+import descriptionFromUrl from '@functions/description-from-url';
 
 const serverlessConfiguration: AWS = {
   service: 'scraper-generation',
@@ -19,7 +19,7 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { hello },
+  functions: { descriptionFromUrl },
   package: { individually: true },
   custom: {
     esbuild: {
