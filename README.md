@@ -93,3 +93,33 @@ The project code base is mainly located within the `src` folder. This folder is 
 ### Advanced usage
 
 Any tsconfig.json can be used, but if you do, set the environment variable `TS_NODE_CONFIG` for building the application, eg `TS_NODE_CONFIG=./tsconfig.app.json npx serverless webpack`
+
+----------------------------------------------------------------
+
+## Particular instructions
+
+Should you receive this message before an error from node-canvas:
+
+```
+Error: libjpeg.so.62: cannot open shared object file: No such file or directory
+```
+
+You must check the following steps:
+
+- Firstly, install the depended libraries:
+
+bash```
+sudo apt instal libjpeg8-dev libpixman-1-dev libcairo2-dev libpango1.0-dev libgif-dev
+```
+
+- Secondly, having installed node dependencies, run jsdom-fix.sh:
+
+bash```
+chmod u+x jsdom-fix.sh && ./jsdom-fix.sh
+```
+
+- Thirdly, go into canvas's directory in node_modules and, having node-gyp installed globally, execute
+
+bash```
+node-gyp rebuild
+```

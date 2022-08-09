@@ -31,6 +31,7 @@ const serverlessConfiguration: AWS = {
       define: { 'require.resolve': undefined },
       platform: 'node',
       concurrency: 10,
+      plugins: './src/esbuild-plugins.js'
     },
   },
 };
