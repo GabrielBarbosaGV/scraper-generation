@@ -32,7 +32,8 @@ describe('completer', () => {
                     expect(createCompletion).toHaveBeenCalledWith({
                         model: "text-davinci-002",
                         prompt: completionArg,
-                        temperature: 0
+                        temperature: 0,
+                        max_tokens: 300
                     });
 
                     jest.resetAllMocks();
