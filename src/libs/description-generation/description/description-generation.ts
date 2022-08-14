@@ -3,7 +3,7 @@ import { descriptionCenter } from "./description-center";
 import { descriptionPrefix } from "./description-prefix";
 import { descriptionSuffix } from "./description-suffix";
 
-interface DescriptionArgs {
+export interface DescriptionArgs {
     topics: string[],
     document: MinimalDocument
 }
@@ -13,19 +13,3 @@ export const description = ({ topics, document }: DescriptionArgs) => [
     descriptionCenter(document),
     descriptionSuffix()
 ].join('');
-
-interface PartitionedDescriptionArgs extends DescriptionArgs {
-    partitionsOf: (string) => string[]
-}
-
-export const partitionedDescription = ({ topics, document, partitionsOf }: PartitionedDescriptionArgs) => {
-    const prefix = descriptionPrefix(topics);
-
-    const center = descriptionCenter(document);
-
-    const partitionedCenter = partitionsOf(center);
-
-    const suffix = descriptionSuffix();
-
-    return partitionedCenter.map(c => [prefix, c, suffix].join(''));
-};
