@@ -4,7 +4,7 @@ import { descriptionPrefix } from './description-prefix';
 import { descriptionCenter } from './description-center';
 import { descriptionSuffix } from './description-suffix';
 
-import { description } from './description-generation';
+import { description, partitionsOf } from './description-generation';
 import { MinimalDocument } from '../dom/text-nodes-from-document';
 
 jest.mock('./description-prefix');
@@ -36,6 +36,34 @@ describe('description', () => {
                         descriptionCenter(document),
                         descriptionSuffix()
                     ].join(''));
+                }
+            )
+        );
+    });
+});
+
+describe('partitionsOf', () => {
+    test('Partitions given text into sections smaller than 3000 characters if given value surpasses this limit', () => {
+        fc.assert(
+            fc.property(
+				fc.nat({ max: 200 }),
+                (nat) => {
+					const finalNat = 2900 + nat;
+
+					const text = [...new Array(finalNat)].map(_v => 'a').join('');
+
+                    const partitions = partitionsOf(text);
+
+                    if (text.length < 3000) {
+                        const [partition] = partitions;
+                        expect(partition).toEqual(text);
+                    } else {
+						partitions.forEach(s => {
+							expect(s.length).toBeLessThanOrEqual(3000);
+						});
+
+						expect(partitions.join('')).toEqual(text);
+					}
                 }
             )
         );

@@ -4,7 +4,7 @@
   "description": "Serverless aws-nodejs-typescript template",
   "main": "serverless.ts",
   "scripts": {
-    "test": "jest --watch --coverage"
+    "test": "jest --watch --coverage --silent=false"
   },
   "engines": {
     "node": ">=14.15.0"
@@ -12,6 +12,7 @@
   "dependencies": {
     "@middy/core": "^2.5.3",
     "@middy/http-json-body-parser": "^2.5.3",
+    "@types/lodash": "^4.14.183",
     "cairo": "^0.1.0-alpha.3",
     "canvas": "^2.9.3",
     "child_process": "^1.0.2",
