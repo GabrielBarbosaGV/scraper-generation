@@ -55,3 +55,23 @@ export function* iterate<T>(initial: T, f: (t: T) => T) {
   for (let t = initial; ; t = f(t))
     yield t;
 }
+
+export const lastFromIterable = <T,>(iterable: Iterable<T>): T => {
+  let ret = null;
+
+  for (const r of iterable)
+    ret = r;
+
+  return ret;
+}
+
+export function* take<T>(iterable: Iterable<T>, n: number) {
+  let i = 0;
+
+  for (const item of iterable) {
+    if (i++ >= n)
+      break;
+
+    yield item;
+  }
+}

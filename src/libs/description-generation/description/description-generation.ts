@@ -19,8 +19,30 @@ export const description = ({ topics, document }: DescriptionArgs) => [
 export const partitionsOf = (s: string) => Array.from(lazyPartitionsOf(s));
 
 function* lazyPartitionsOf(s: string) {
-  for (const [start, end] of zipWithNext(indicesOfNewlineOrLimit(s)))
+  for (const [start, end] of zipWithNext(distantIndicesOfNewlineOrLimit(s))) {
     yield s.slice(start, end);
+  }
+}
+
+function* distantIndicesOfNewlineOrLimit(s: string) {
+  let previous = 0;
+  let penultimate = 0;
+  let last = 0;
+
+  yield 0;
+
+  for (const i of indicesOfNewlineOrLimit(s)) {
+    penultimate = last;
+
+    if (i - previous > 3000) {
+      previous = i;
+      yield penultimate;
+    }
+
+    last = i;
+  }
+
+  yield last;
 }
 
 const by3000UpToValueIncrementer = (start: number, value: number) =>

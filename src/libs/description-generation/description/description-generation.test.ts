@@ -43,7 +43,7 @@ describe('description', () => {
 });
 
 describe('partitionsOf', () => {
-  test('Partitions given text into sections smaller than 3000 characters if given value surpasses this limit', () => {
+  test('partitions given text into sections smaller than 3000 characters if given value surpasses this limit', () => {
     fc.assert(
       fc.property(
         fc.nat({ max: 200 }),
@@ -55,7 +55,6 @@ describe('partitionsOf', () => {
           const partitions = partitionsOf(text);
 
           if (text.length < 3000) {
-            console.log(`Partitions is: ${partitions}`);
             const [partition] = partitions;
             expect(partition).toEqual(text);
           } else {
@@ -68,5 +67,20 @@ describe('partitionsOf', () => {
         }
       )
     );
+  });
+
+  test('partitions given text so that sections are as long as possible', () => {
+    const makePart = (size: number) => [...new Array(size)].map(_ => 'a').join('');
+
+    const partOne = `${makePart(1500)}\n`;
+    const partTwo = `${makePart(1498)}\n`;
+    const partThree = `${makePart(1000)}`;
+
+    const fullText = `${partOne}${partTwo}${partThree}`;
+
+    const [one, two] = partitionsOf(fullText);
+
+    expect(one.length).toEqual(3000);
+    expect(two.length).toEqual(1000);
   });
 });
