@@ -1,32 +1,50 @@
+import { iterate, takeWhile, zipWithNext } from "../../../libs/utils/iterable";
+import { indicesOf } from "../../../libs/utils/string";
 import { MinimalDocument } from "../dom/text-nodes-from-document";
 import { descriptionCenter } from "./description-center";
 import { descriptionPrefix } from "./description-prefix";
 import { descriptionSuffix } from "./description-suffix";
-import { chompLinesUpToNCharacters } from "./string-chomper";
 
 export interface DescriptionArgs {
-    topics: string[],
-    document: MinimalDocument
+  topics: string[],
+  document: MinimalDocument
 }
 
 export const description = ({ topics, document }: DescriptionArgs) => [
-    descriptionPrefix(topics),
-    descriptionCenter(document),
-    descriptionSuffix()
+  descriptionPrefix(topics),
+  descriptionCenter(document),
+  descriptionSuffix()
 ].join('');
 
-export const partitionsOf = (s: string) => {
-    let curr: string, rest: string;
+export const partitionsOf = (s: string) => Array.from(lazyPartitionsOf(s));
 
-    rest = s;
+function* lazyPartitionsOf(s: string) {
+  for (const [start, end] of zipWithNext(indicesOfNewlineOrLimit(s)))
+    yield s.slice(start, end);
+}
 
-    return Array.from(
-        function*() {
-            while (rest.length > 0) {
-                [curr, rest] = chompLinesUpToNCharacters(rest, 3000);
+const by3000UpToValueIncrementer = (start: number, value: number) =>
+  takeWhile(iterate(start, i => i + 3000), i => i < value);
 
-                yield curr;
-            }
-        }()
-    );
+function* indicesOfNewlineOrLimit(s: string) {
+  const newlineIndicesGenerator = indicesOf(s, '\n');
+
+  let currIndex = 0;
+
+  while (true) {
+    const { done, value } = newlineIndicesGenerator.next();
+
+    if (done) {
+      yield* by3000UpToValueIncrementer(currIndex, s.length);
+      yield s.length;
+
+      break;
+    } else {
+      const valueAsNumber = value as number + 1;
+
+      yield* by3000UpToValueIncrementer(currIndex, valueAsNumber);
+
+      currIndex = valueAsNumber;
+    }
+  }
 }

@@ -1,53 +1,57 @@
 export function* takeWhile<T>(iterable: Iterable<T>, predicate: (t: T) => boolean) {
-    for (const item of iterable) {
-        if (predicate(item)) yield item;
-        else return;
-    }
+  for (const item of iterable) {
+    if (predicate(item)) yield item;
+    else return;
+  }
 }
 
 export function* takeUntil<T>(iterable: Iterable<T>, predicate: (t: T) => boolean) {
-    const negatedPredicate = (t: T) => !predicate(t);
+  const negatedPredicate = (t: T) => !predicate(t);
 
-    for (const item of takeWhile(iterable, negatedPredicate))
-        yield item;
+  for (const item of takeWhile(iterable, negatedPredicate))
+    yield item;
 }
 
 export function* zipWithNext<T>(iterable: Iterable<T>) {
-    // As we yield elements only for lists with lengths over
-    // two, at start we do not yield, reason for which this
-    // variable is used
-    let atStart = true;
+  // As we yield elements only for lists with lengths over
+  // two, at start we do not yield, reason for which this
+  // variable is used
+  let atStart = true;
 
-    let curr: T;
+  let curr: T;
 
-    for (const next of iterable) {
-        if (!atStart)
-            yield [curr, next];
+  for (const next of iterable) {
+    if (!atStart)
+      yield [curr, next];
 
-        curr = next;
-        atStart = false;
-    }
+    curr = next;
+    atStart = false;
+  }
 }
 
 export function* indicesWhere<T>(iterable: Iterable<T>, predicate: (t: T) => boolean) {
-    let i = 0;
+  let i = 0;
 
-    for (const curr of iterable) {
-        if (predicate(curr))
-            yield i;
+  for (const curr of iterable) {
+    if (predicate(curr))
+      yield i;
 
-        i++;
-    }
+    i++;
+  }
 }
 
 export const nthFrom = <T,>(iterable: Iterable<T>, n: number) => {
-    let i = 0;
+  let i = 0;
 
+  for (const curr of iterable) {
+    if (i++ === n)
+      return curr;
+  }
 
-    for (const curr of iterable) {
-        if (i++ === n)
-            return curr;
-    }
-
-    throw new Error(`Given number, ${n}, out of bounds. Counted until ${i}.`);
+  throw new Error(`Given number, ${n}, out of bounds. Counted until ${i}.`);
 };
+
+export function* iterate<T>(initial: T, f: (t: T) => T) {
+  for (let t = initial; ; t = f(t))
+    yield t;
+}

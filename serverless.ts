@@ -1,6 +1,7 @@
 import type { AWS } from '@serverless/typescript';
 
 import descriptionFromUrl from '@functions/description-from-url';
+import partitionedDescriptionsFromUrl from '@functions/partitioned-description-from-url';
 
 const serverlessConfiguration: AWS = {
   service: 'scraper-generation',
@@ -19,7 +20,10 @@ const serverlessConfiguration: AWS = {
     },
   },
   // import the function via paths
-  functions: { descriptionFromUrl },
+  functions: {
+    descriptionFromUrl,
+    partitionedDescriptionsFromUrl
+  },
   package: { individually: true },
   custom: {
     esbuild: {
