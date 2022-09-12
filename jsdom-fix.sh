@@ -7,7 +7,7 @@ JSDOM_XHR_CPY=$JSDOM_XHR_FULL.swp
 
 touch $JSDOM_XHR_CPY
 
-sed 's/require.resolve(".\/xhr-sync-worker.js")/require.resolve("jsdom\/lib\/jsdom\/living\/xhr\/xhr-sync-worker.js")/' \
+sed 's/^const syncWorkerFile =.*$/const syncWorkerFile = null;/g' \
 	< $JSDOM_XHR_FULL \
 	> $JSDOM_XHR_CPY
 
