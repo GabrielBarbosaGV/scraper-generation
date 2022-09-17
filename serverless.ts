@@ -6,7 +6,10 @@ import partitionedDescriptionsFromUrl from '@functions/partitioned-description-f
 const serverlessConfiguration: AWS = {
   service: 'scraper-generation',
   frameworkVersion: '3',
-  plugins: ['serverless-esbuild'],
+  plugins: [
+	  'serverless-esbuild',
+	  'serverless-step-functions'
+  ],
   provider: {
     name: 'aws',
     runtime: 'nodejs14.x',
@@ -18,6 +21,16 @@ const serverlessConfiguration: AWS = {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
       NODE_OPTIONS: '--enable-source-maps --stack-trace-limit=1000',
     },
+	vpc: {
+		securityGroupIds: [
+			'sg-7a7f271d'
+		],
+		subnetIds: [
+			'subnet-f2808689',
+			'subnet-2897dc65',
+			'subnet-0120cf69'
+		]
+	}
   },
   // import the function via paths
   functions: {
