@@ -1,10 +1,10 @@
 import serverless from 'serverless-http';
 import express from 'express';
-import { documentFromText } from './src/libs/description-generation/dom/document-acquisition';
 import { description as descriptionFor } from './src/libs/description-generation/description/description-generation';
-import { MinimalDocument } from './src/libs/description-generation/dom/text-nodes-from-document';
-import fetch from 'node-fetch';
 import { ResponseStatus } from './src/constants';
+import { documentFromUrl } from './src/libs/description-generation/fetching/document-from-url';
+import { partitionedDescription } from './src/libs/description-generation/description/description-partitions';
+import { partitionsOf } from './src/libs/description-generation/description/description-generation';
 
 const app = express();
 
@@ -12,11 +12,7 @@ app.post('/description-from-url', async (req, res) => {
   try {
     const { url, topics } = JSON.parse(req.body);
 
-    const fetched = await fetch(url);
-
-    const text = await fetched.text();
-
-    const document = documentFromText(text) as MinimalDocument;
+    const document = await documentFromUrl(url);
 
     const description = descriptionFor({ document, topics });
 
@@ -31,9 +27,14 @@ app.post('/partitioned-descriptions-from-url', async (req, res) => {
   try {
     const { url, topics } = JSON.parse(req.body);
 
-    const fetched = await fetch(url);
+    const document = await documentFromUrl(url);
 
-    const text = await fetched.text();
+    const descriptions = partitionedDescription({ document, topics, partitionsOf });
+
+    return res.status(ResponseStatus.RES_OK).json({ descriptions });
+  } catch (err) {
+    console.log(`Requisition with body ${req.body} errored with ${err}`);
+    return res.status(ResponseStatus.INTERNAL_SERVER_ERROR);
   }
 });
 

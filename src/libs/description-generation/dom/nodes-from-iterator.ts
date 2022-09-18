@@ -1,5 +1,5 @@
 export interface MinimalNodeIterator {
-    nextNode: () => Node
+    nextNode: () => Node | null
 }
 
 export function* iterableFromNodeIterator(nodeIterator: MinimalNodeIterator) {

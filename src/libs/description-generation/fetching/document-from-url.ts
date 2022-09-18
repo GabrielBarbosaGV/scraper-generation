@@ -1,4 +1,4 @@
-import fetch from 'node-fetch';
+const fetch = require('node-fetch');
 import { JSDOM } from 'jsdom';
 
 interface TextSupplier {
@@ -26,5 +26,5 @@ export const documentFromUrl = async (
 
     const text = await fetched.text();
 
-    return domify(text);
+    return domify(text).window.document;
 };

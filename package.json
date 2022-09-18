@@ -6,6 +6,7 @@
     "test": "jest --watch --coverage"
   },
   "dependencies": {
+    "@types/express": "^4.17.14",
     "canvas": "^2.10.1",
     "express": "^4.18.1",
     "jsdom": "^20.0.0",
@@ -24,6 +25,5 @@
     "serverless-esbuild": "^1.32.8",
     "ts-jest": "^29.0.1",
     "typescript": "^4.8.3"
-  },
-  "type": "module"
+  }
 }
