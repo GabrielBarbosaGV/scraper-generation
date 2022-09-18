@@ -18,11 +18,11 @@ export function* zipWithNext<T>(iterable: Iterable<T>) {
   // variable is used
   let atStart = true;
 
-  let curr: T;
+  let curr: T | null = null;
 
   for (const next of iterable) {
     if (!atStart)
-      yield [curr, next];
+      yield [curr!, next];
 
     curr = next;
     atStart = false;
@@ -62,7 +62,7 @@ export const lastFromIterable = <T,>(iterable: Iterable<T>): T => {
   for (const r of iterable)
     ret = r;
 
-  return ret;
+  return ret!;
 }
 
 export function* take<T>(iterable: Iterable<T>, n: number) {

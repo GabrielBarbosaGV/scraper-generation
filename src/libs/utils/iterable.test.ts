@@ -108,8 +108,8 @@ describe('takeUntil', () => {
 });
 
 describe('zipWithNext', () => {
-  const selectFirst = ([a, _]) => a;
-  const selectSecond = ([_, b]) => b;
+  const selectFirst = <T,>([a, _]: [T, any]) => a;
+  const selectSecond = <T,>([_, b]: [any, T]) => b;
 
   test('can be used to rebuild original lists', () => {
     fc.assert(

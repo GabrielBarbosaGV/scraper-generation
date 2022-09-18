@@ -7,7 +7,7 @@ interface SelectorRepresentationArgs {
 
 export interface ExtractorArgs {
     selector: string,
-    querySelector: (string) => Node
+    querySelector: (s: string) => Node
 }
 
 type SelectorWithExtractor = [string, (extractorArgs: ExtractorArgs) => string];

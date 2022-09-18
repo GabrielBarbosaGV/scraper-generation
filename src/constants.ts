@@ -1,0 +1,4 @@
+export const ResponseStatus = {
+    RES_OK: 200,
+    INTERNAL_SERVER_ERROR: 500
+};

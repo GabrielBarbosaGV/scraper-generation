@@ -4,7 +4,7 @@ import { documentFromText } from './document-acquisition';
 
 jest.mock('jsdom');
 
-describe('documentFromTest', () => {
+describe('documentFromText', () => {
     test('instantiates a JSDOM', () => {
         (JSDOM as any).mockReturnValue({
             window: {

@@ -7,8 +7,18 @@ provider:
   name: aws
   runtime: nodejs14.x
 
+plugins:
+  - serverless-esbuild
+  - serverless-offline
+
 functions:
   api:
     handler: handler.handler
     events:
       - httpApi: '*'
+    timeout: 30
+
+custom:
+  esbuild:
+    plugins: src/esbuild-plugins.js
+    sourcemap: true

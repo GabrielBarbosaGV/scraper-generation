@@ -29,10 +29,10 @@ export const obtainAllTextNodes = (
         .map(parentOfTextElement);
 };
 
-const parentOfTextElement = (node: Node) => node.parentElement;
+const parentOfTextElement = (node: Node) => node.parentElement!;
 
-const nodeDoesNotHaveEmptyText = (node: Node) => textIsNotEmpty(node.textContent);
+const nodeDoesNotHaveEmptyText = (node: Node) => textIsNotEmpty(node.textContent ?? '');
 
-const textIsNotEmpty = s => !textIsEmpty(s);
+const textIsNotEmpty = (s: string) => !textIsEmpty(s);
 
-const textIsEmpty = s => /^\s*$/.test(s);
+const textIsEmpty = (s: string) => /^\s*$/.test(s);
