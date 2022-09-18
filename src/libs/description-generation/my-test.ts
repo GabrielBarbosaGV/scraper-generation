@@ -1,4 +1,4 @@
-import { config } from 'dotenv';
+const { config } = require('dotenv');
 import { JSDOM } from 'jsdom';
 import { completer } from './ai/fetched-completion';
 import { description } from './description/description-generation';

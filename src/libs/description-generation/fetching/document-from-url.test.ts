@@ -11,7 +11,11 @@ describe('documentFromUrl', () => {
 
     const fetch = jest.fn().mockReturnValue(supplyText);
 
-    const domify = jest.fn();
+    const domify = jest.fn().mockReturnValue({
+        window: {
+            document: jest.fn()()
+        }
+    });
 
     test('fetches from url', async () => {
         await documentFromUrl(url, {

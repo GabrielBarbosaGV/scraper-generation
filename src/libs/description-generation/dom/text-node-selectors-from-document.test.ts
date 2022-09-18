@@ -1,10 +1,10 @@
 import fc from "fast-check";
 import { selectorsFromDocument, uniqueTextNodeSelectorsFromDocument } from "./text-node-selectors-from-document";
-const unique = require('unique-selector');
+const unique = require('unique-selector').default;
 import { textNodesFromDocument } from './text-nodes-from-document';
 import { uniqueSelector } from "./unique";
 
-jest.mock('unique-selector', () => jest.fn());
+jest.mock('unique-selector', () => ({ default: jest.fn() }));
 jest.mock('./text-nodes-from-document');
 
 describe('selectorsFromDocument', () => {

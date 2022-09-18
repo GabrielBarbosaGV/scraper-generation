@@ -1,9 +1,9 @@
 import fc from "fast-check";
 import { uniqueSelector } from "./unique";
 
-const unique = require('unique-selector');
+const unique = require('unique-selector').default;
 
-jest.mock('unique-selector', () => jest.fn());
+jest.mock('unique-selector', () => ({ default: jest.fn() }));
 
 describe('uniqueSelector', () => {
     test('returns unique\'s return value, and unique must have been called with proper arguments', () => {
