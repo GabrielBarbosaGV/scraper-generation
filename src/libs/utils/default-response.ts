@@ -11,12 +11,12 @@ const defaultRespondingOpts = {
 };
 
 export const responding = (
-    responder: ((req: any) => any),
+    responder: ((req: any) => Promise<any>),
     {
         name,
         log
     }: RespondingOpts = defaultRespondingOpts
-) => (req: any, res: any) => {
+) => async (req: any, res: any) => {
     try {
         const resultJson = responder(req);
 
@@ -27,3 +27,26 @@ export const responding = (
         return res.status(ResponseStatus.INTERNAL_SERVER_ERROR);
     }
 };
+
+interface UrlAndTopics {
+    url: string,
+    topics: string[]
+}
+
+interface WithUrlAndTopicsOpts {
+    parse?: (s: string) => any,
+    responding?: typeof responding
+}
+
+const defaultWithUrlAndTopicsOpts = {
+    parse: JSON.parse,
+    responding
+};
+
+export const withUrlAndTopics = (
+    use: (uat: UrlAndTopics) => Promise<any>,
+    {
+        parse = defaultWithUrlAndTopicsOpts.parse,
+        responding = defaultWithUrlAndTopicsOpts.responding
+    }: WithUrlAndTopicsOpts = defaultWithUrlAndTopicsOpts
+) => responding(async req => use(parse(req.body) as UrlAndTopics));
