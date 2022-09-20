@@ -29,4 +29,34 @@ describe('responding', () => {
             )
         );
     });
+
+    test('returned function errors when appropriate', () => {
+        fc.assert(
+            fc.property(
+                fc.string(),
+
+                name => {
+                    const statusMock = jest.fn();
+                    const log = jest.fn();
+
+                    const responder = responding(
+                        (_) => {
+                            throw new Error('Ayy');
+                        },
+                        {
+                            name,
+                            log
+                        }
+                    );
+
+                    const [req, res] = [jest.fn(), { status: statusMock }];
+
+                    responder(req, res);
+
+                    expect(statusMock).toHaveBeenCalledWith(ResponseStatus.INTERNAL_SERVER_ERROR);
+                    expect(log).toHaveBeenCalled();
+                }
+            )
+        )
+    });
 });
