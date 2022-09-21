@@ -2,7 +2,7 @@ import fc from "fast-check";
 import { completionsForAllDescriptions } from "./completion";
 
 describe('completionsForAllDescriptions', () => {
-    test('awaits all completions and returns them', async () => {
+    test('awaits all completions and returns them', () => {
         fc.assert(
             fc.property(
                 fc.array(
@@ -15,9 +15,11 @@ describe('completionsForAllDescriptions', () => {
 
                     const allCompletions = completionsForAllDescriptions(ss, promiseCompleter);
 
-                    allCompletions.then(allS => expect(allS.map(s => s in ss).reduce((a, b) => a && b)));
+                    const promise = allCompletions.then(allS => allS.map(s => ss.includes(s)).reduce((a, b) => a && b, true));
+
+                    expect(promise).resolves.toBeTruthy();
                 }
             )
-        )
+        );
     });
 });
