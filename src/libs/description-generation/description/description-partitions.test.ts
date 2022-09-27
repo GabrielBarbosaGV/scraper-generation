@@ -40,7 +40,7 @@ describe('partitionedDescription', () => {
                         partitionedDescription({
                             topics,
                             document,
-                            partitionsOf: partitioner
+                            partitioningWith: partitioner
                         })
                     ).toEqual(
                         partitioner(centerText).map(c => {

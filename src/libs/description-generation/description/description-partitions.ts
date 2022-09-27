@@ -4,10 +4,10 @@ import { descriptionPrefix } from "./description-prefix";
 import { descriptionSuffix } from "./description-suffix";
 
 interface PartitionedDescriptionArgs extends DescriptionArgs {
-  partitionsOf: (s: string) => string[]
+  partitioningWith: (s: string) => string[]
 }
 
-export const partitionedDescription = ({ topics, document, partitionsOf }: PartitionedDescriptionArgs) => {
+export const partitionedDescription = ({ topics, document, partitioningWith: partitionsOf }: PartitionedDescriptionArgs) => {
   const prefix = descriptionPrefix(topics);
 
   const center = descriptionCenter(document);

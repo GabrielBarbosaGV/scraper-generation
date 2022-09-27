@@ -1,0 +1,1 @@
+export { completionsForAllDescriptions } from './completion';

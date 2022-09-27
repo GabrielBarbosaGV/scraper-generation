@@ -5,7 +5,7 @@ export const completer = () => {
     const openai = makeOpenAIApi();
 
     return {
-        for: async (prompt: string) => {
+        for: async (prompt: string): Promise<string> => {
             const completionObject = await openai.createCompletion({
                 model: "text-davinci-002",
                 prompt,
