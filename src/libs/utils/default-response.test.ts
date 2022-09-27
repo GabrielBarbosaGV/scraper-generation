@@ -4,13 +4,11 @@ import { responding, withUrlAndTopics } from './default-response';
 
 describe('responding', () => {
     test('returned function sends OK response with expected content', () => {
-        let assertionCount = 0;
-
-        fc.assert(
-            fc.property(
+        return fc.assert(
+            fc.asyncProperty(
                 fc.anything(),
 
-                anything => {
+                async anything => {
                     const jsonReceiver = jest.fn();
 
                     const statusMock = jest.fn().mockReturnValue({
@@ -23,28 +21,27 @@ describe('responding', () => {
 
                     const responder = responding(async (_) => anything);
 
-                    assertionCount += 2;
+                    await responder(req, res)
 
-                    responder(req, res).then(_ => {
-                        expect(statusMock).toHaveBeenCalledWith(ResponseStatus.RES_OK);
-                        expect(jsonReceiver).toHaveBeenCalledWith(anything);
-                    });
+                    expect(statusMock).toHaveBeenCalledWith(ResponseStatus.RES_OK);
+                    expect(jsonReceiver).toHaveBeenCalledWith(anything);
                 }
             )
         );
-
-        expect.assertions(assertionCount);
     });
 
     test('returned function errors when appropriate', () => {
-        let assertionCount = 0;
-
-        fc.assert(
-            fc.property(
+        return fc.assert(
+            fc.asyncProperty(
                 fc.string(),
 
-                name => {
-                    const statusMock = jest.fn();
+                async name => {
+                    const jsonReceiver = jest.fn();
+
+                    const statusMock = jest.fn().mockReturnValue({
+                        json: jsonReceiver
+                    });
+
                     const log = jest.fn();
 
                     const responder = responding(
@@ -59,32 +56,26 @@ describe('responding', () => {
 
                     const [req, res] = [jest.fn(), { status: statusMock }];
 
-                    assertionCount += 2;
+                    await responder(req, res)
 
-                    responder(req, res).then(_ => {
-                        expect(statusMock).toHaveBeenCalledWith(ResponseStatus.INTERNAL_SERVER_ERROR);
-                        expect(log).toHaveBeenCalled();
-                    });
+                    expect(statusMock).toHaveBeenCalledWith(ResponseStatus.INTERNAL_SERVER_ERROR);
+                    expect(log).toHaveBeenCalled();
                 }
             )
         );
-
-        expect.assertions(assertionCount);
     });
 });
 
 describe('withUrlAndTopics', () => {
     test('extracts url and topics using parse', () => {
-        let assertionCount = 0;
-
-        fc.assert(
-            fc.property(
+        return fc.assert(
+            fc.asyncProperty(
                 fc.record({
                     url: fc.string(),
                     topics: fc.array(fc.string(), { maxLength: 20 })
                 }),
 
-                urlAndTopics => {
+                async urlAndTopics => {
                     const useMock = jest.fn();
 
                     const parse = jest.fn().mockReturnValue(urlAndTopics);
@@ -94,20 +85,20 @@ describe('withUrlAndTopics', () => {
                         { parse }
                     );
 
-                    const statusMock = jest.fn();
+                    const jsonReceiver = jest.fn();
+
+                    const statusMock = jest.fn().mockReturnValue({
+                        json: jsonReceiver
+                    });
 
                     const [req, res] = [{ body: jest.fn() }, { status: statusMock }];
 
-                    assertionCount += 2;
+                    await responder(req, res)
 
-                    responder(req, res).then(_ => {
-                        expect(parse).toHaveBeenCalled();
-                        expect(useMock).toHaveBeenCalledWith(urlAndTopics);
-                    });
+                    expect(parse).toHaveBeenCalled();
+                    expect(useMock).toHaveBeenCalledWith(urlAndTopics);
                 }
             )
         );
-
-        expect.assertions(assertionCount);
     });
 });

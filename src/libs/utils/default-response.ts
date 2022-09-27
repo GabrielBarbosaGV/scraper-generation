@@ -18,7 +18,7 @@ export const responding = (
     }: RespondingOpts = defaultRespondingOpts
 ) => async (req: any, res: any) => {
     try {
-        const resultJson = responder(req);
+        const resultJson = await responder(req);
 
         return res.status(ResponseStatus.RES_OK).json(resultJson);
     } catch (err) {
