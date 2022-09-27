@@ -1,31 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1664305497722" clover="3.2.0">
-  <project timestamp="1664305497722" name="All files">
-    <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4" elements="21" coveredelements="19" complexity="0" loc="13" ncloc="13" packages="2" files="2" classes="2"/>
-    <package name="libs">
-      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="constants.ts" path="/home/gabriel/Personal/Study/scraper-generation/src/libs/constants.ts">
-        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="1" type="stmt"/>
-      </file>
-    </package>
-    <package name="libs.utils">
-      <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4"/>
-      <file name="default-response.ts" path="/home/gabriel/Personal/Study/scraper-generation/src/libs/utils/default-response.ts">
-        <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="2" methods="4" coveredmethods="4"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
-        <line num="19" count="300" type="stmt"/>
-        <line num="20" count="300" type="stmt"/>
-        <line num="21" count="300" type="stmt"/>
-        <line num="23" count="200" type="stmt"/>
-        <line num="25" count="100" type="stmt"/>
-        <line num="27" count="100" type="stmt"/>
-        <line num="41" count="1" type="stmt"/>
-        <line num="46" count="1" type="stmt"/>
-        <line num="52" count="100" type="stmt"/>
-      </file>
-    </package>
+<coverage generated="1664306884511" clover="3.2.0">
+  <project timestamp="1664306884511" name="All files">
+    <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="3" coveredelements="3" complexity="0" loc="2" ncloc="2" packages="1" files="1" classes="1"/>
+    <file name="completion.ts" path="/home/gabriel/Personal/Study/scraper-generation/src/libs/completion/completion.ts">
+      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <line num="7" count="1" type="stmt"/>
+      <line num="8" count="100" type="stmt"/>
+    </file>
   </project>
 </coverage>

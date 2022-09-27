@@ -15,7 +15,7 @@ describe('completionsForAllDescriptions', () => {
 
                     const promiseCompleter = async (s: string) => immediateCompleter(s);
 
-                    const allCompletions = await completionsForAllDescriptions(ss, promiseCompleter);
+                    const allCompletions = await completionsForAllDescriptions(ss, { completingWith: promiseCompleter });
 
                     const mappedSs = ss.map(immediateCompleter);
 

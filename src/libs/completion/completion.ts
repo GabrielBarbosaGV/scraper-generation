@@ -1,5 +1,9 @@
 type Completer = (prompt: string) => Promise<string>;
 
-export const completionsForAllDescriptions = async (ss: string[], completer: Completer) => {
-    return await Promise.all(ss.map(completer));
+interface CompletionsForAllDescriptionsOpts {
+    completingWith: Completer
+}
+
+export const completionsForAllDescriptions = async (ss: string[], { completingWith }: CompletionsForAllDescriptionsOpts) => {
+    return await Promise.all(ss.map(completingWith));
 };
