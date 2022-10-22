@@ -1,6 +1,6 @@
 import fc from "fast-check";
 import { ResponseStatus } from "../constants";
-import { responding, withUrlAndTopics } from './default-response';
+import { defaultWithUrlAndTopicsOpts, responding, withUrlAndTopics } from './default-response';
 
 describe('responding', () => {
     test('returned function sends OK response with expected content', () => {
@@ -82,7 +82,7 @@ describe('withUrlAndTopics', () => {
 
                     const responder = withUrlAndTopics(
                         useMock,
-                        { parse }
+                        { ...defaultWithUrlAndTopicsOpts, parse }
                     );
 
                     const jsonReceiver = jest.fn();

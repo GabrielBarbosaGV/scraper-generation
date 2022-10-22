@@ -22,7 +22,7 @@ export const responding = (
 
         return res.status(ResponseStatus.RES_OK).json(resultJson);
     } catch (err) {
-        log(`Requisition with body ${req.body}, for method ${name}, errored with ${err}`);
+        log(`Requisition with body ${req.body}, for method ${name}, errored with ${err.stack}`);
 
         return res.status(ResponseStatus.INTERNAL_SERVER_ERROR);
     }
@@ -34,19 +34,22 @@ interface UrlAndTopics {
 }
 
 interface WithUrlAndTopicsOpts {
-    parse?: (s: string) => any,
-    responding?: typeof responding
+    parse: (s: string) => any,
+    responding: typeof responding,
+    name: string
 }
 
-const defaultWithUrlAndTopicsOpts = {
+export const defaultWithUrlAndTopicsOpts = {
     parse: JSON.parse,
-    responding
+    responding,
+    name: 'Default Name'
 };
 
 export const withUrlAndTopics = (
     use: (uat: UrlAndTopics) => Promise<any>,
     {
-        parse = defaultWithUrlAndTopicsOpts.parse,
-        responding = defaultWithUrlAndTopicsOpts.responding
-    }: WithUrlAndTopicsOpts = defaultWithUrlAndTopicsOpts
-) => responding(async req => use(parse(req.body) as UrlAndTopics));
+        parse,
+        responding,
+        name
+    }: WithUrlAndTopicsOpts
+) => responding(async req => use(parse(req.body) as UrlAndTopics), { log: console.log, name });

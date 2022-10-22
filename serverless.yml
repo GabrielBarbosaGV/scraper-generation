@@ -3,6 +3,8 @@ app: scraper-generation
 service: scraper-generation
 frameworkVersion: '3'
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs14.x
@@ -17,6 +19,8 @@ functions:
     events:
       - httpApi: '*'
     timeout: 30
+    environment:
+      OPENAI_API_KEY: ${env:OPENAI_API_KEY}
 
 custom:
   esbuild:
