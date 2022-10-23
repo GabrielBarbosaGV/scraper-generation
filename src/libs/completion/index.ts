@@ -1,1 +1,1 @@
-export { completionsForAllDescriptions } from './completion';
+export { completionsForAllDescriptions, exponentialBackOffCompletions } from './completion';

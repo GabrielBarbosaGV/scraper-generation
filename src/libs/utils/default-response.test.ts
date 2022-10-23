@@ -1,6 +1,7 @@
 import fc from "fast-check";
 import { ResponseStatus } from "../constants";
 import { defaultWithUrlAndTopicsOpts, responding, withUrlAndTopics } from './default-response';
+import { Request,Response } from 'express';
 
 describe('responding', () => {
     test('returned function sends OK response with expected content', () => {
@@ -15,9 +16,9 @@ describe('responding', () => {
                         json: jsonReceiver
                     });
 
-                    const res = { status: statusMock };
+                    const res = { status: statusMock } as unknown as Response;
 
-                    const req = jest.fn();
+                    const req = jest.fn()();
 
                     const responder = responding(async (_) => anything);
 
@@ -54,7 +55,10 @@ describe('responding', () => {
                         }
                     );
 
-                    const [req, res] = [jest.fn(), { status: statusMock }];
+                    const [req, res] = [
+                        { body: jest.fn() } as unknown as Request,
+                        { status: statusMock } as unknown as Response
+                    ];
 
                     await responder(req, res)
 
@@ -91,7 +95,10 @@ describe('withUrlAndTopics', () => {
                         json: jsonReceiver
                     });
 
-                    const [req, res] = [{ body: jest.fn() }, { status: statusMock }];
+                    const [req, res] = [
+                        { body: jest.fn() } as unknown as Request,
+                        { status: statusMock } as unknown as Response
+                    ];
 
                     await responder(req, res)
 

@@ -1,21 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1666433452748" clover="3.2.0">
-  <project timestamp="1666433452748" name="All files">
-    <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4" elements="17" coveredelements="17" complexity="0" loc="12" ncloc="12" packages="1" files="1" classes="1"/>
-    <file name="default-response.ts" path="/home/gabriel/Personal/Study/scraper-generation/src/libs/utils/default-response.ts">
+<coverage generated="1666529639835" clover="3.2.0">
+  <project timestamp="1666529639835" name="All files">
+    <metrics statements="23" coveredstatements="23" conditionals="1" coveredconditionals="1" methods="9" coveredmethods="9" elements="33" coveredelements="33" complexity="0" loc="23" ncloc="23" packages="4" files="4" classes="4"/>
+    <package name="libs">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="constants.ts" path="/home/gabriel/Personal/Study/scraper-generation/src/libs/constants.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="libs.completion">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+      <file name="completion.ts" path="/home/gabriel/Personal/Study/scraper-generation/src/libs/completion/completion.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="100" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="408" type="stmt"/>
+      </file>
+    </package>
+    <package name="libs.description-generation.fetching">
+      <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="rendered-document-from-url.ts" path="/home/gabriel/Personal/Study/scraper-generation/src/libs/description-generation/fetching/rendered-document-from-url.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="libs.utils">
       <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4"/>
-      <line num="1" count="1" type="stmt"/>
-      <line num="8" count="1" type="stmt"/>
-      <line num="13" count="1" type="stmt"/>
-      <line num="19" count="300" type="stmt"/>
-      <line num="20" count="300" type="stmt"/>
-      <line num="21" count="300" type="stmt"/>
-      <line num="23" count="200" type="stmt"/>
-      <line num="25" count="100" type="stmt"/>
-      <line num="27" count="100" type="stmt"/>
-      <line num="42" count="1" type="stmt"/>
-      <line num="48" count="1" type="stmt"/>
-      <line num="55" count="100" type="stmt"/>
-    </file>
+      <file name="default-response.ts" path="/home/gabriel/Personal/Study/scraper-generation/src/libs/utils/default-response.ts">
+        <metrics statements="12" coveredstatements="12" conditionals="1" coveredconditionals="1" methods="4" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="20" count="300" type="stmt"/>
+        <line num="21" count="300" type="stmt"/>
+        <line num="22" count="300" type="stmt"/>
+        <line num="24" count="200" type="stmt"/>
+        <line num="26" count="100" type="stmt"/>
+        <line num="28" count="100" type="stmt"/>
+        <line num="43" count="1" type="stmt"/>
+        <line num="49" count="1" type="stmt"/>
+        <line num="56" count="100" type="stmt"/>
+      </file>
+    </package>
   </project>
 </coverage>

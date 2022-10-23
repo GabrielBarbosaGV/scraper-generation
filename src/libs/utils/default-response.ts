@@ -1,4 +1,5 @@
 import { ResponseStatus } from '../constants';
+import { Request, Response } from 'express';
 
 interface RespondingOpts {
     name: string,
@@ -16,7 +17,7 @@ export const responding = (
         name,
         log
     }: RespondingOpts = defaultRespondingOpts
-) => async (req: any, res: any) => {
+) => async (req: Request, res: Response) => {
     try {
         const resultJson = await responder(req);
 
@@ -24,7 +25,7 @@ export const responding = (
     } catch (err) {
         log(`Requisition with body ${req.body}, for method ${name}, errored with ${err.stack}`);
 
-        return res.status(ResponseStatus.INTERNAL_SERVER_ERROR);
+        return res.status(ResponseStatus.INTERNAL_SERVER_ERROR).json(err);
     }
 };
 

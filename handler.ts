@@ -5,7 +5,7 @@ import { documentFromUrl } from './src/libs/description-generation/fetching/docu
 import { partitionedDescription } from './src/libs/description-generation/description/description-partitions';
 import { partitionsOf } from './src/libs/description-generation/description/description-generation';
 import { defaultWithUrlAndTopicsOpts, withUrlAndTopics } from './src/libs/utils/default-response';
-import { completionsForAllDescriptions } from './src/libs/completion';
+import { exponentialBackOffCompletions } from './src/libs/completion';
 import { completer } from './src/libs/description-generation/ai/fetched-completion';
 
 const app = express();
@@ -31,7 +31,7 @@ app.post('/completions-for', withUrlAndTopics(async ({ url, topics }) => {
 
   const completion = completer();
 
-  return completionsForAllDescriptions(descriptions, { completingWith: completion.for });
+  return exponentialBackOffCompletions(descriptions, { completingWith: completion.for });
 }, optsWithName('completions-for')));
 
 module.exports.handler = serverless(app);

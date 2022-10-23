@@ -1,9 +1,15 @@
-type Completer = (prompt: string) => Promise<string>;
+import { backOff } from 'exponential-backoff';
 
-interface CompletionsForAllDescriptionsOpts {
-    completingWith: Completer
+type Completer<T> = (prompt: T) => Promise<T>;
+
+interface CompletionsForAllDescriptionsOpts<T> {
+    completingWith: Completer<T>
 }
 
-export const completionsForAllDescriptions = async (ss: string[], { completingWith }: CompletionsForAllDescriptionsOpts) => {
-    return await Promise.all(ss.map(completingWith));
+export const completionsForAllDescriptions = async <T,>(values: T[], { completingWith }: CompletionsForAllDescriptionsOpts<T>) => {
+    return await Promise.all(values.map(completingWith));
+};
+
+export const exponentialBackOffCompletions = async <T,>(values: T[], { completingWith }: CompletionsForAllDescriptionsOpts<T>) => {
+    return await Promise.all(values.map(v => backOff(() => completingWith(v), { numOfAttempts: 100 })));
 };
