@@ -1,29 +1,24 @@
-interface UnrenderedDocument {
+import { JSDOM } from 'jsdom';
 
+const endAfterMilliseconds = (timeInMilliseconds: number) => new Promise(resolve => setTimeout(resolve, timeInMilliseconds));
+
+interface RenderedDocumentFromUrlOpts {
+    numberOfMillisecondsToWaitFor: number
 }
 
 interface RenderedDocumentFromUrl {
     [k: string]: RenderedDocumentFromUrlOpts
 }
 
-interface RenderedDocumentFromUrlOpts {
-    fetchingWith: (url: string) => UnrenderedDocument,
-    renderingWith: (unrenderedDocument: UnrenderedDocument) => Document
-}
-
 export const RenderedDocumentFromUrl: RenderedDocumentFromUrl = {
+    defaultOpts: {
+        numberOfMillisecondsToWaitFor: 3000
+    }
 };
 
-export const renderedDocumentFromUrl = (
+export const renderedDocumentFromUrl = async (
     url: string,
-    {
-        fetchingWith: fetch,
-        renderingWith: render
-    }: RenderedDocumentFromUrlOpts
+    { numberOfMillisecondsToWaitFor }: RenderedDocumentFromUrlOpts
 ) => {
-    const unrenderedDocument = fetch(url);
-
-    const renderedDocument = render(unrenderedDocument);
-    
-    return renderedDocument;
+    // TODO
 };
